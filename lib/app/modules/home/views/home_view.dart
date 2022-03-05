@@ -15,55 +15,65 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: const [
-            Expanded(child: SearchTextField()),
-            SizedBox(
+          children: [
+            Expanded(child: SearchTextField(controller: controller)),
+            const SizedBox(
               width: 10,
             ),
-            SearchButton(),
+            SearchButton(
+              controller: controller,
+            ),
           ],
         ),
         backgroundColor: AppColor.bgColor,
         elevation: 0,
+        //
       ),
       backgroundColor: AppColor.bgColor,
-      body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView.builder(
-              itemCount: 25,
-              // controller: _scrollController,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Container(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Flower",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                        ),
-                        Container(
+      body:GetBuilder(builder: (HomeController controller) {
+              return  controller.isFirstLoad.value
+          ? const SizedBox.expand(
+            )
+          : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView.builder(
+                    itemCount: controller.imageList.length,
+                    // controller: _scrollController,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: SizedBox(
                           width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: Image.network(
-                                "https://cdn.pixabay.com/photo/2016/01/08/05/24/sunflower-1127174_150.jpg",
-                                fit: BoxFit.fitWidth,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "${controller.imageList[index].tags}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
+                                ),
                               ),
-                            ),
+                              Container(
+                                width: double.infinity,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    child: Image.network(
+                                      controller.imageList[index].previewUrl,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              })),
+                      );
+                    }),
+              );
+            }),
     );
   }
 }
