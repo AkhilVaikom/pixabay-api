@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pixabay/app/constants/string_constant.dart';
 import 'package:pixabay/app/modules/home/widgets/search_button.dart';
 import 'package:pixabay/app/modules/home/widgets/search_text_field.dart';
+import 'package:pixabay/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -30,11 +31,10 @@ class HomeView extends GetView<HomeController> {
         //
       ),
       backgroundColor: AppColor.bgColor,
-      body:GetBuilder(builder: (HomeController controller) {
-              return  controller.isFirstLoad.value
-          ? const SizedBox.expand(
-            )
-          : Padding(
+      body: GetBuilder(builder: (HomeController controller) {
+        return controller.isFirstLoad.value
+            ? const SizedBox.expand()
+            : Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(
                     itemCount: controller.imageList.length,
@@ -59,11 +59,20 @@ class HomeView extends GetView<HomeController> {
                                 width: double.infinity,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Card(
-                                    child: Image.network(
-                                      controller.imageList[index].previewUrl,
-                                      fit: BoxFit.fitWidth,
+                                  child: GestureDetector(
+                                    child: Card(
+                                      child: Image.network(
+                                        controller.imageList[index].previewUrl,
+                                        
+                                        fit: BoxFit.fitWidth,
+                                      ),
                                     ),
+                                    onTap: () {
+                                      print(controller.imageList[index].largeImageUrl);
+                                      Get.toNamed(Routes.FULLSCREEN, arguments: {
+                                        'largeImageURL': controller.imageList[index].largeImageUrl,
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
@@ -73,7 +82,7 @@ class HomeView extends GetView<HomeController> {
                       );
                     }),
               );
-            }),
+      }),
     );
   }
 }

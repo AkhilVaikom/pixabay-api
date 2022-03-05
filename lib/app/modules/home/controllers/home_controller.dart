@@ -30,9 +30,11 @@ class HomeController extends GetxController {
       isFirstLoad(false);
       final _result = await getImage(searchValue);
       final _resultData = _result[0].hits;
+      print(_resultData);
       if (_resultData != null) {
         imageList.clear();
         imageList.addAll(_resultData);
+        print(imageList);
         update();
       }
       
