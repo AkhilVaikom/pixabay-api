@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pixabay/app/data/services/remote_service.dart';
 import 'package:pixabay/app/modules/home/widgets/search_button.dart';
 import 'package:pixabay/app/modules/home/widgets/search_text_field.dart';
 import 'package:pixabay/app/routes/app_pages.dart';
@@ -56,7 +57,7 @@ class HomeView extends GetView<HomeController> {
                     controller: controller.refreshController,
                     enablePullUp: true,
                     onRefresh: ()async{
-                      final result=await controller.getHitsData(isRefresh: true);
+                      final result=await getHitsData(isRefresh: true);
                       if(result){
                         controller.refreshController.refreshCompleted();
                       }else{
@@ -64,7 +65,7 @@ class HomeView extends GetView<HomeController> {
                       }
                     },
                     onLoading: ()async{
-                       final result=await controller.getHitsData();
+                       final result=await getHitsData();
                       if(result){
                         controller.refreshController.loadComplete();
                       }else{

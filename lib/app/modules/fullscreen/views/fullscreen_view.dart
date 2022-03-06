@@ -6,16 +6,17 @@ import 'package:pixabay/app/constants/my_material_color.dart';
 import '../controllers/fullscreen_controller.dart';
 
 class FullscreenView extends GetView<FullscreenController> {
+  const FullscreenView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Display Full Screen"),
+        title: const Text("Display Full Screen"),
         elevation: 0,
         backgroundColor: myTeal,
       ),
-      body: Container(
+      body: SizedBox(
         child: Image.network(
           controller.largeImageURL,
           fit: BoxFit.cover,

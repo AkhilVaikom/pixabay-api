@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pixabay/app/constants/string_constant.dart';
+import 'package:pixabay/app/data/services/remote_service.dart';
 import 'package:pixabay/app/modules/home/controllers/home_controller.dart';
 
 class SearchButton extends StatelessWidget {
@@ -25,7 +26,7 @@ class SearchButton extends StatelessWidget {
         minimumSize: const Size(80, 40),
       ),
       onPressed: () {
-        controller.getHitsData();
+        getHitsData();
       },
       child: Text(buttonName),
     );

@@ -20,7 +20,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FULLSCREEN,
-      page: () => FullscreenView(),
+      page: () => const FullscreenView(),
       binding: FullscreenBinding(),
     ),
   ];
