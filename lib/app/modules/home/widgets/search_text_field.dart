@@ -8,35 +8,30 @@ class SearchTextField extends StatelessWidget {
   const SearchTextField({
     Key? key,
     required this.controller,
+    required this.hintText,
   }) : super(key: key);
-final HomeController controller;
+  final HomeController controller;
+  final String hintText;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller.searchController,
-      style: const TextStyle(
-          fontSize: 16, color: AppColor.fontColor),
-      decoration: const InputDecoration(
-        hintText: "Search",
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: 25),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: myTeal, width: 2),
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: myTeal, width: 2),
-            borderRadius:
-                BorderRadius.all(Radius.circular(30))),
-                focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: myTeal, width: 2),
-            borderRadius:
-                BorderRadius.all(Radius.circular(30))),
+      style: const TextStyle(fontSize: 16, color: AppColor.fontColor),
+      decoration: InputDecoration(
+        hintText: hintText,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 25),
+        border: textBorder(),
+        enabledBorder: textBorder(),
+        focusedBorder: textBorder(),
+      ),
+    );
+  }
+
+  OutlineInputBorder textBorder() {
+    return const OutlineInputBorder(
+      borderSide: BorderSide(color: myTeal, width: 2),
+      borderRadius: BorderRadius.all(
+        Radius.circular(30),
       ),
     );
   }

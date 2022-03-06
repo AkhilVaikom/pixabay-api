@@ -7,9 +7,11 @@ class SearchButton extends StatelessWidget {
   const SearchButton({
     Key? key,
     required this.controller,
+    required this.buttonName,
   }) : super(key: key);
 
   final HomeController controller;
+  final String buttonName;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -23,9 +25,9 @@ class SearchButton extends StatelessWidget {
         minimumSize: const Size(80, 40),
       ),
       onPressed: () {
-        controller.fetchImage();
+        controller.getHitsData();
       },
-      child: const Text('Search'),
+      child: Text(buttonName),
     );
   }
 }
